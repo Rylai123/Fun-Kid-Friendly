@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy English Friends</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      font-family: 'Fredoka', sans-serif;
+    }
+    
+    .bounce-in {
+      animation: bounceIn 0.5s ease-out;
+    }
+    
+    @keyframes bounceIn {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .wiggle {
+      animation: wiggle 0.5s ease-in-out;
+    }
+    
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-10deg); }
+      75% { transform: rotate(10deg); }
+    }
+    
+    .pulse-grow {
+      animation: pulseGrow 0.3s ease-out;
+    }
+    
+    @keyframes pulseGrow {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+    
+    .star-burst {
+      animation: starBurst 0.6s ease-out forwards;
+    }
+    
+    @keyframes starBurst {
+      0% { transform: scale(0) rotate(0deg); opacity: 1; }
+      100% { transform: scale(2) rotate(180deg); opacity: 0; }
+    }
+    
+    .float-up {
+      animation: floatUp 1s ease-out forwards;
+    }
+    
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+    }
+    
+    .rainbow-text {
+      background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .nav-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .nav-btn {
+      transition: all 0.2s ease;
+    }
+    
+    .item-btn:active {
+      transform: scale(0.95);
+    }
+    
+    .confetti {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1000;
+  }
+  .footer {
+  background: linear-gradient(135deg, #4e73df, #6f8cff);
+  height: 80px;                 /* footer height */
+  display: flex;               /* enable flexbox */
+  flex-direction: column;      /* stack text */
+  justify-content: center;     /* vertical center */
+  align-items: center;         /* horizontal center */
+  text-align: center;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.footer-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.footer-sub {
+  font-size: 0.8rem;
+  margin: 4px 0 0;
+  opacity: 0.9;
+}
+
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full m-0 overflow-auto" id="app-body">
+  <div id="app-wrapper" class="min-h-full w-full"><!-- Header -->
+   <header id="main-header" class="text-center py-6 px-4 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+     <div class="absolute top-2 left-10 text-4xl animate-bounce" style="animation-delay: 0s;">
+      ⭐
+     </div>
+     <div class="absolute top-8 right-16 text-3xl animate-bounce" style="animation-delay: 0.2s;">
+      🌈
+     </div>
+     <div class="absolute bottom-4 left-1/4 text-2xl animate-bounce" style="animation-delay: 0.4s;">
+      ✨
+     </div>
+     <div class="absolute bottom-2 right-1/3 text-3xl animate-bounce" style="animation-delay: 0.6s;">
+      🎈
+     </div>
+    </div>
+    <h1 id="site-title" class="text-4xl md:text-5xl font-bold rainbow-text mb-2 relative z-10">Happy English Friends</h1>
+    <p id="welcome-msg" class="text-xl md:text-2xl text-white font-medium relative z-10">Let's Learn English Together! 一起学英语！</p>
+    <p class="text-lg text-white/80 mt-1 relative z-10">🎯 Click to hear • Watch videos • Have fun!</p>
+   </header><!-- Navigation -->
+   <nav class="flex flex-wrap justify-center gap-3 md:gap-4 px-4 py-4" id="main-nav"><button onclick="showSection('alphabet')" class="nav-btn px-6 py-3 rounded-full text-lg md:text-xl font-bold shadow-lg flex items-center gap-2" id="nav-alphabet"> 🔤 ABC字母 </button> <button onclick="showSection('numbers')" class="nav-btn px-6 py-3 rounded-full text-lg md:text-xl font-bold shadow-lg flex items-center gap-2" id="nav-numbers"> 🔢 Numbers数字 </button> <button onclick="showSection('animals')" class="nav-btn px-6 py-3 rounded-full text-lg md:text-xl font-bold shadow-lg flex items-center gap-2" id="nav-animals"> 🐾 Animals动物 </button> <button onclick="showSection('videos')" class="nav-btn px-6 py-3 rounded-full text-lg md:text-xl font-bold shadow-lg flex items-center gap-2" id="nav-videos"> 🎬 Videos视频 </button>
+   </nav><!-- Main Content Area -->
+   <main class="px-4 pb-8"><!-- Alphabet Section -->
+    <section id="alphabet-section" class="hidden">
+     <div class="text-center mb-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">🔤 The Alphabet 字母表</h2>
+      <p class="text-lg text-white/90">Click each letter to hear it! 点击字母听发音！</p>
+     </div>
+     <div id="alphabet-grid" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-9 gap-3 max-w-4xl mx-auto"><!-- Letters generated by JS -->
+     </div>
+     <div class="mt-6 p-4 rounded-2xl max-w-2xl mx-auto text-center" id="alphabet-display">
+      <p id="current-letter" class="text-6xl md:text-8xl font-bold mb-2">🌟</p>
+      <p id="letter-word" class="text-2xl md:text-3xl font-medium text-white">Click a letter to start!</p>
+      <p id="letter-chinese" class="text-xl text-white/80 mt-1">点击字母开始学习！</p>
+     </div>
+    </section><!-- Numbers Section -->
+    <section id="numbers-section" class="hidden">
+     <div class="text-center mb-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">🔢 Numbers 数字</h2>
+      <p class="text-lg text-white/90">Count with us! 一起数数！</p>
+     </div>
+     <div id="numbers-grid" class="grid grid-cols-3 sm:grid-cols-5 gap-4 max-w-3xl mx-auto"><!-- Numbers generated by JS -->
+     </div>
+     <div class="mt-6 p-4 rounded-2xl max-w-2xl mx-auto text-center" id="numbers-display">
+      <p id="current-number" class="text-6xl md:text-8xl font-bold mb-2">🔢</p>
+      <p id="number-word" class="text-3xl md:text-4xl font-medium text-white">Click a number!</p>
+      <p id="number-chinese" class="text-xl text-white/80 mt-1">点击数字开始！</p>
+      <div id="number-visual" class="flex flex-wrap justify-center gap-2 mt-4"><!-- Visual counting items -->
+      </div>
+     </div>
+    </section><!-- Animals Section -->
+    <section id="animals-section" class="hidden">
+     <div class="text-center mb-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">🐾 Animals 动物</h2>
+      <p class="text-lg text-white/90">Meet our animal friends! 认识动物朋友！</p>
+     </div>
+     <div id="animals-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-w-4xl mx-auto"><!-- Animals generated by JS -->
+     </div>
+     <div class="mt-6 p-4 rounded-2xl max-w-2xl mx-auto text-center" id="animals-display">
+      <p id="current-animal" class="text-6xl md:text-8xl mb-2">🦁</p>
+      <p id="animal-word" class="text-3xl md:text-4xl font-medium text-white">Click an animal!</p>
+      <p id="animal-chinese" class="text-xl text-white/80 mt-1">点击动物开始！</p>
+      <p id="animal-sound" class="text-2xl text-white/90 mt-2 italic"></p>
+     </div>
+    </section><!-- Videos Section -->
+    <section id="videos-section" class="hidden">
+     <div class="text-center mb-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">🎬 Learning Videos 学习视频</h2>
+      <p class="text-lg text-white/90">Watch and learn! 观看学习！</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <div class="rounded-2xl p-4 card-hover cursor-pointer" id="video-card-1" onclick="playVideo('alphabet')">
+       <div class="aspect-video rounded-xl flex items-center justify-center text-6xl mb-3" id="video-thumb-1">
+        🔤
+       </div>
+       <h3 class="text-xl font-bold text-white text-center">ABC Song 字母歌</h3>
+       <p class="text-white/80 text-center">Learn the alphabet!</p>
+      </div>
+      <div class="rounded-2xl p-4 card-hover cursor-pointer" id="video-card-2" onclick="playVideo('numbers')">
+       <div class="aspect-video rounded-xl flex items-center justify-center text-6xl mb-3" id="video-thumb-2">
+        🔢
+       </div>
+       <h3 class="text-xl font-bold text-white text-center">Counting Song 数字歌</h3>
+       <p class="text-white/80 text-center">Count 1 to 10!</p>
+      </div>
+      <div class="rounded-2xl p-4 card-hover cursor-pointer" id="video-card-3" onclick="playVideo('animals')">
+       <div class="aspect-video rounded-xl flex items-center justify-center text-6xl mb-3" id="video-thumb-3">
+        🐾
+       </div>
+       <h3 class="text-xl font-bold text-white text-center">Animal Sounds 动物叫声</h3>
+       <p class="text-white/80 text-center">What does it say?</p>
+      </div>
+      <div class="rounded-2xl p-4 card-hover cursor-pointer" id="video-card-4" onclick="playVideo('colors')">
+       <div class="aspect-video rounded-xl flex items-center justify-center text-6xl mb-3" id="video-thumb-4">
+        🌈
+       </div>
+       <h3 class="text-xl font-bold text-white text-center">Colors Song 颜色歌</h3>
+       <p class="text-white/80 text-center">Learn your colors!</p>
+      </div>
+     </div><!-- Video Player Modal -->
+     <div id="video-modal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl w-full max-w-3xl overflow-hidden">
+       <div class="flex justify-between items-center p-4 bg-gradient-to-r from-purple-500 to-pink-500">
+        <h3 id="video-title" class="text-xl font-bold text-white">Video</h3><button onclick="closeVideo()" class="text-white text-3xl hover:scale-110 transition-transform">×</button>
+       </div>
+  <iframe
+  id="video-frame"
+  class="w-full h-full"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
+
+      </div>
+     </div>
+    </section>
+   </main><!-- Feedback Popup -->
+   <div id="feedback-popup" class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none">
+    <div class="text-center bounce-in">
+     <p class="text-6xl md:text-8xl" id="feedback-emoji">⭐</p>
+     <p class="text-2xl md:text-3xl font-bold text-white drop-shadow-lg" id="feedback-text">Great job!</p>
+    </div>
+   </div><!-- Footer -->
+   <div class="text-center py-4 px-4" id="main-footer">
+    <p class="text-white/90 text-lg">🌟 Great job learning today! 今天学得真棒！🌟</p>
+    <p class="text-white/70 text-sm mt-1">Made with ❤️ for young learners</p>
+  </div>
+<footer>
+        Created By <a href="https://www.facebook.com/arviewapsponz342">click me po</a> | © 2024 All Rights Reserved Rylai
+      </footer>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      site_title: "Happy English Friends",
+      welcome_message: "Let's Learn English Together!",
+      background_color: "#667eea",
+      surface_color: "#ffffff",
+      text_color: "#1f2937",
+      primary_action: "#10b981",
+      secondary_action: "#f59e0b"
+    };
+
+    let config = { ...defaultConfig };
+
+    // Data
+    const alphabetData = [
+      { letter: 'A', word: 'Apple', emoji: '🍎', chinese: '苹果' },
+      { letter: 'B', word: 'Ball', emoji: '⚽', chinese: '球' },
+      { letter: 'C', word: 'Cat', emoji: '🐱', chinese: '猫' },
+      { letter: 'D', word: 'Dog', emoji: '🐕', chinese: '狗' },
+      { letter: 'E', word: 'Elephant', emoji: '🐘', chinese: '大象' },
+      { letter: 'F', word: 'Fish', emoji: '🐟', chinese: '鱼' },
+      { letter: 'G', word: 'Grape', emoji: '🍇', chinese: '葡萄' },
+      { letter: 'H', word: 'House', emoji: '🏠', chinese: '房子' },
+      { letter: 'I', word: 'Ice cream', emoji: '🍦', chinese: '冰淇淋' },
+      { letter: 'J', word: 'Juice', emoji: '🧃', chinese: '果汁' },
+      { letter: 'K', word: 'Kite', emoji: '🪁', chinese: '风筝' },
+      { letter: 'L', word: 'Lion', emoji: '🦁', chinese: '狮子' },
+      { letter: 'M', word: 'Moon', emoji: '🌙', chinese: '月亮' },
+      { letter: 'N', word: 'Nest', emoji: '🪺', chinese: '鸟巢' },
+      { letter: 'O', word: 'Orange', emoji: '🍊', chinese: '橙子' },
+      { letter: 'P', word: 'Panda', emoji: '🐼', chinese: '熊猫' },
+      { letter: 'Q', word: 'Queen', emoji: '👸', chinese: '女王' },
+      { letter: 'R', word: 'Rainbow', emoji: '🌈', chinese: '彩虹' },
+      { letter: 'S', word: 'Sun', emoji: '☀️', chinese: '太阳' },
+      { letter: 'T', word: 'Tree', emoji: '🌳', chinese: '树' },
+      { letter: 'U', word: 'Umbrella', emoji: '☂️', chinese: '雨伞' },
+      { letter: 'V', word: 'Violin', emoji: '🎻', chinese: '小提琴' },
+      { letter: 'W', word: 'Water', emoji: '💧', chinese: '水' },
+      { letter: 'X', word: 'X-ray', emoji: '🩻', chinese: 'X光' },
+      { letter: 'Y', word: 'Yo-yo', emoji: '🪀', chinese: '溜溜球' },
+      { letter: 'Z', word: 'Zebra', emoji: '🦓', chinese: '斑马' }
+    ];
+
+    const numbersData = [
+      { num: 1, word: 'One', chinese: '一', emoji: '1️⃣' },
+      { num: 2, word: 'Two', chinese: '二', emoji: '2️⃣' },
+      { num: 3, word: 'Three', chinese: '三', emoji: '3️⃣' },
+      { num: 4, word: 'Four', chinese: '四', emoji: '4️⃣' },
+      { num: 5, word: 'Five', chinese: '五', emoji: '5️⃣' },
+      { num: 6, word: 'Six', chinese: '六', emoji: '6️⃣' },
+      { num: 7, word: 'Seven', chinese: '七', emoji: '7️⃣' },
+      { num: 8, word: 'Eight', chinese: '八', emoji: '8️⃣' },
+      { num: 9, word: 'Nine', chinese: '九', emoji: '9️⃣' },
+      { num: 10, word: 'Ten', chinese: '十', emoji: '🔟' }
+    ];
+
+    const animalsData = [
+      { name: 'Dog', emoji: '🐕', chinese: '狗', sound: 'Woof woof!' },
+      { name: 'Cat', emoji: '🐱', chinese: '猫', sound: 'Meow meow!' },
+      { name: 'Bird', emoji: '🐦', chinese: '鸟', sound: 'Tweet tweet!' },
+      { name: 'Fish', emoji: '🐟', chinese: '鱼', sound: 'Blub blub!' },
+      { name: 'Lion', emoji: '🦁', chinese: '狮子', sound: 'Roar!' },
+      { name: 'Elephant', emoji: '🐘', chinese: '大象', sound: 'Trumpet!' },
+      { name: 'Monkey', emoji: '🐒', chinese: '猴子', sound: 'Ooh ooh ah ah!' },
+      { name: 'Pig', emoji: '🐷', chinese: '猪', sound: 'Oink oink!' },
+      { name: 'Cow', emoji: '🐄', chinese: '牛', sound: 'Moo moo!' },
+      { name: 'Duck', emoji: '🦆', chinese: '鸭子', sound: 'Quack quack!' },
+      { name: 'Frog', emoji: '🐸', chinese: '青蛙', sound: 'Ribbit ribbit!' },
+      { name: 'Bear', emoji: '🐻', chinese: '熊', sound: 'Growl!' }
+    ];
+
+const videoData = {
+  alphabet: {
+    url: "https://www.youtube.com/embed/hq3yfQnllfQ",
+    title: "ABC Song 字母歌"
+  },
+  numbers: {
+    url: "https://www.youtube.com/embed/D0Ajq682yrA",
+    title: "Counting Song 数字歌"
+  },
+  animals: {
+    url: "https://www.youtube.com/embed/5oH9Nr3bKfw",
+    title: "Animal Sounds 动物叫声"
+  },
+  colors: {
+    url: "https://www.youtube.com/embed/ybt2jhCQ3lA",
+    title: "Colors Song 颜色歌"
+  }
+};
+
+
+
+
+
+    const feedbackPhrases = [
+      { emoji: '⭐', text: 'Great job! 太棒了！' },
+      { emoji: '🌟', text: 'Excellent! 非常好！' },
+      { emoji: '🎉', text: 'Wonderful! 真棒！' },
+      { emoji: '👏', text: 'Well done! 做得好！' },
+      { emoji: '🏆', text: 'Amazing! 太厉害了！' },
+      { emoji: '💪', text: 'You got it! 你做到了！' }
+    ];
+
+    // Speech synthesis
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.8;
+        utterance.pitch = 1.1;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Show positive feedback
+    function showFeedback() {
+      const popup = document.getElementById('feedback-popup');
+      const emojiEl = document.getElementById('feedback-emoji');
+      const textEl = document.getElementById('feedback-text');
+      
+      const feedback = feedbackPhrases[Math.floor(Math.random() * feedbackPhrases.length)];
+      emojiEl.textContent = feedback.emoji;
+      textEl.textContent = feedback.text;
+      
+      popup.classList.remove('hidden');
+      popup.querySelector('div').classList.remove('bounce-in');
+      void popup.querySelector('div').offsetWidth;
+      popup.querySelector('div').classList.add('bounce-in');
+      
+      createConfetti();
+      
+      setTimeout(() => {
+        popup.classList.add('hidden');
+      }, 1500);
+    }
+
+    // Create confetti effect
+    function createConfetti() {
+      const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff', '#5f27cd'];
+      const emojis = ['⭐', '🌟', '✨', '🎉', '🎈', '🌈'];
+      
+      for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti float-up';
+          confetti.style.left = (Math.random() * 80 + 10) + '%';
+          confetti.style.top = (Math.random() * 40 + 30) + '%';
+          confetti.style.fontSize = (Math.random() * 20 + 20) + 'px';
+          confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          document.body.appendChild(confetti);
+          
+          setTimeout(() => confetti.remove(), 1000);
+        }, i * 50);
+      }
+    }
+
+    // Section navigation
+    function showSection(section) {
+      document.querySelectorAll('main section').forEach(s => s.classList.add('hidden'));
+      document.getElementById(section + '-section').classList.remove('hidden');
+      
+      // Update nav button styles
+      document.querySelectorAll('#main-nav button').forEach(btn => {
+        btn.style.backgroundColor = config.surface_color || defaultConfig.surface_color;
+        btn.style.color = config.text_color || defaultConfig.text_color;
+      });
+      document.getElementById('nav-' + section).style.backgroundColor = config.primary_action || defaultConfig.primary_action;
+      document.getElementById('nav-' + section).style.color = '#ffffff';
+    }
+
+    // Letter click handler
+    function clickLetter(data, btn) {
+      btn.classList.add('wiggle');
+      setTimeout(() => btn.classList.remove('wiggle'), 500);
+      
+      document.getElementById('current-letter').textContent = data.emoji + ' ' + data.letter;
+      document.getElementById('letter-word').textContent = data.letter + ' is for ' + data.word;
+      document.getElementById('letter-chinese').textContent = data.chinese;
+      
+      speak(data.letter + '. ' + data.letter + ' is for ' + data.word);
+      showFeedback();
+    }
+
+    // Number click handler
+    function clickNumber(data, btn) {
+      btn.classList.add('pulse-grow');
+      setTimeout(() => btn.classList.remove('pulse-grow'), 300);
+      
+      document.getElementById('current-number').textContent = data.emoji;
+      document.getElementById('number-word').textContent = data.word;
+      document.getElementById('number-chinese').textContent = data.chinese;
+      
+      // Visual counting
+      const visual = document.getElementById('number-visual');
+      visual.innerHTML = '';
+      const countEmojis = ['🌟', '⭐', '🎈', '🍎', '🌸'];
+      const chosenEmoji = countEmojis[Math.floor(Math.random() * countEmojis.length)];
+      
+      for (let i = 0; i < data.num; i++) {
+        setTimeout(() => {
+          const span = document.createElement('span');
+          span.className = 'text-3xl md:text-4xl bounce-in inline-block';
+          span.textContent = chosenEmoji;
+          visual.appendChild(span);
+        }, i * 100);
+      }
+      
+      speak(data.word);
+      showFeedback();
+    }
+
+    // Animal click handler
+    function clickAnimal(data, btn) {
+      btn.classList.add('wiggle');
+      setTimeout(() => btn.classList.remove('wiggle'), 500);
+      
+      document.getElementById('current-animal').textContent = data.emoji;
+      document.getElementById('animal-word').textContent = data.name;
+      document.getElementById('animal-chinese').textContent = data.chinese;
+      document.getElementById('animal-sound').textContent = '"' + data.sound + '"';
+      
+      speak('This is a ' + data.name + '. The ' + data.name + ' says ' + data.sound);
+      showFeedback();
+    }
+
+    // Video functions
+   function playVideo(type) {
+  const video = videoData[type];
+
+  // stop any speaking voice
+  if (window.speechSynthesis) {
+    speechSynthesis.cancel();
+  }
+
+  const iframe = document.getElementById('video-frame');
+  document.getElementById('video-title').textContent = video.title;
+
+  iframe.src = video.url + '?rel=0&modestbranding=1&autoplay=1';
+
+  document.getElementById('video-modal').classList.remove('hidden');
+}
+
+  function closeVideo() {
+  const iframe = document.getElementById('video-frame');
+  iframe.src = "";
+  document.getElementById('video-modal').classList.add('hidden');
+}
+
+
+    // Generate grids
+    function generateAlphabetGrid() {
+      const grid = document.getElementById('alphabet-grid');
+      grid.innerHTML = '';
+      
+      alphabetData.forEach(data => {
+        const btn = document.createElement('button');
+        btn.className = 'item-btn aspect-square rounded-xl text-2xl md:text-3xl font-bold shadow-lg hover:scale-105 transition-all';
+        btn.style.backgroundColor = config.surface_color || defaultConfig.surface_color;
+        btn.style.color = config.text_color || defaultConfig.text_color;
+        btn.textContent = data.letter;
+        btn.onclick = () => clickLetter(data, btn);
+        grid.appendChild(btn);
+      });
+    }
+
+    function generateNumbersGrid() {
+      const grid = document.getElementById('numbers-grid');
+      grid.innerHTML = '';
+      
+      numbersData.forEach(data => {
+        const btn = document.createElement('button');
+        btn.className = 'item-btn aspect-square rounded-2xl text-4xl md:text-5xl font-bold shadow-lg hover:scale-105 transition-all flex flex-col items-center justify-center';
+        btn.style.backgroundColor = config.surface_color || defaultConfig.surface_color;
+        btn.style.color = config.text_color || defaultConfig.text_color;
+        btn.innerHTML = `<span>${data.num}</span><span class="text-lg md:text-xl">${data.word}</span>`;
+        btn.onclick = () => clickNumber(data, btn);
+        grid.appendChild(btn);
+      });
+    }
+
+    function generateAnimalsGrid() {
+      const grid = document.getElementById('animals-grid');
+      grid.innerHTML = '';
+      
+      animalsData.forEach(data => {
+        const btn = document.createElement('button');
+        btn.className = 'item-btn rounded-2xl p-4 shadow-lg hover:scale-105 transition-all flex flex-col items-center';
+        btn.style.backgroundColor = config.surface_color || defaultConfig.surface_color;
+        btn.style.color = config.text_color || defaultConfig.text_color;
+        btn.innerHTML = `
+          <span class="text-5xl md:text-6xl mb-2">${data.emoji}</span>
+          <span class="text-xl md:text-2xl font-bold">${data.name}</span>
+          <span class="text-sm text-gray-500">${data.chinese}</span>
+        `;
+        btn.onclick = () => clickAnimal(data, btn);
+        grid.appendChild(btn);
+      });
+    }
+
+    // Apply colors
+    function applyColors() {
+      const bg = config.background_color || defaultConfig.background_color;
+      const surface = config.surface_color || defaultConfig.surface_color;
+      const text = config.text_color || defaultConfig.text_color;
+      const primary = config.primary_action || defaultConfig.primary_action;
+      const secondary = config.secondary_action || defaultConfig.secondary_action;
+
+      document.body.style.background = `linear-gradient(135deg, ${bg} 0%, ${adjustColor(bg, -20)} 100%)`;
+      
+      // Header
+      document.getElementById('main-header').style.background = `linear-gradient(135deg, ${primary} 0%, ${secondary} 100%)`;
+      
+      // Nav buttons
+      document.querySelectorAll('#main-nav button').forEach(btn => {
+        btn.style.backgroundColor = surface;
+        btn.style.color = text;
+      });
+      
+      // Display areas
+      ['alphabet-display', 'numbers-display', 'animals-display'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.backgroundColor = adjustColor(bg, 20);
+        }
+      });
+      
+      // Video cards
+      for (let i = 1; i <= 4; i++) {
+        const card = document.getElementById(`video-card-${i}`);
+        const thumb = document.getElementById(`video-thumb-${i}`);
+        if (card) card.style.backgroundColor = surface;
+        if (thumb) thumb.style.background = `linear-gradient(135deg, ${primary}40, ${secondary}40)`;
+      }
+      
+      // Footer
+      document.getElementById('main-footer').style.background = `linear-gradient(135deg, ${adjustColor(bg, -10)} 0%, ${adjustColor(bg, -30)} 100%)`;
+      
+      // Regenerate grids with new colors
+      generateAlphabetGrid();
+      generateNumbersGrid();
+      generateAnimalsGrid();
+    }
+
+    // Helper to adjust color brightness
+    function adjustColor(color, percent) {
+      const num = parseInt(color.replace('#', ''), 16);
+      const amt = Math.round(2.55 * percent);
+      const R = (num >> 16) + amt;
+      const G = (num >> 8 & 0x00FF) + amt;
+      const B = (num & 0x0000FF) + amt;
+      return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+    }
+
+    // Config change handler
+    async function onConfigChange(newConfig) {
+      config = { ...defaultConfig, ...newConfig };
+      
+      // Update text content
+      document.getElementById('site-title').textContent = config.site_title || defaultConfig.site_title;
+      document.getElementById('welcome-msg').textContent = (config.welcome_message || defaultConfig.welcome_message) + ' 一起学英语！';
+      
+      applyColors();
+    }
+
+    // Map to capabilities
+    function mapToCapabilities(cfg) {
+      return {
+        recolorables: [
+          {
+            get: () => cfg.background_color || defaultConfig.background_color,
+            set: (value) => { cfg.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
+          },
+          {
+            get: () => cfg.surface_color || defaultConfig.surface_color,
+            set: (value) => { cfg.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); }
+          },
+          {
+            get: () => cfg.text_color || defaultConfig.text_color,
+            set: (value) => { cfg.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+          },
+          {
+            get: () => cfg.primary_action || defaultConfig.primary_action,
+            set: (value) => { cfg.primary_action = value; window.elementSdk.setConfig({ primary_action: value }); }
+          },
+          {
+            get: () => cfg.secondary_action || defaultConfig.secondary_action,
+            set: (value) => { cfg.secondary_action = value; window.elementSdk.setConfig({ secondary_action: value }); }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    // Map to edit panel values
+    function mapToEditPanelValues(cfg) {
+      return new Map([
+        ['site_title', cfg.site_title || defaultConfig.site_title],
+        ['welcome_message', cfg.welcome_message || defaultConfig.welcome_message]
+      ]);
+    }
+
+    // Initialize
+    function init() {
+      generateAlphabetGrid();
+      generateNumbersGrid();
+      generateAnimalsGrid();
+      applyColors();
+      showSection('alphabet');
+      
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange,
+          mapToCapabilities,
+          mapToEditPanelValues
+        });
+      }
+    }
+
+    init();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cb3209b474cb9f6',t:'MTc3MDYzNzU5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
